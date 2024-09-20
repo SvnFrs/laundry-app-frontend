@@ -1,6 +1,6 @@
-import { useRouter, Slot } from "expo-router";
-import { useEffect } from "react";
-import * as SplashScreen from 'expo-splash-screen';
+import { Stack, useRouter } from "expo-router";
+import React, { useEffect } from "react";
+import * as SplashScreen from "expo-splash-screen";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -9,10 +9,16 @@ export default function RootLayout() {
 
   useEffect(() => {
     SplashScreen.hideAsync();
-    // Automatically redirect to (tabs)/(home) after the layout is mounted
     router.replace("/(tabs)/(home)");
   }, []);
 
-  // Ensure the Slot is rendered so the layout can mount correctly
-  return <Slot />;
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        animation: "slide_from_bottom",
+        animationDuration: 500,
+      }}
+    />
+  );
 }

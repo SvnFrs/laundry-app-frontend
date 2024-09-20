@@ -7,17 +7,17 @@ import { View } from "react-native";
 
 const logoImage = require("../../assets/images/logo.png");
 
-export default function Index() {
+export default function Nearby() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
+    <View className="flex-auto items-center justify-center bg-white">
       {/* Title Section */}
       <View className="flex-1 justify-center items-center">
         <View className="my-2">
-          <BoldText label={"Chào mừng bạn yêu!"} />
+          <BoldText label={"Tìm kiếm nơi giặt ủi gần bạn nhất nào"} />
         </View>
         <View className="my-2">
           <RegularText
-            label={"Trải nghiệm dịch vụ giặt ủi cùng với chúng tôi"}
+            label={"Khám phá các cửa hàng giặt ủi gần bạn"}
           />
         </View>
       </View>
@@ -28,11 +28,19 @@ export default function Index() {
       </View>
 
       {/* Button Section */}
-      <Button
-        destination={"/(guides)/nearby"}
-        label={"Bắt đầu thôi"}
-        width={350}
-      />
+      <View className="flex-1 flex-row my-4">
+        <Button
+          destination={"/(auth)/signup"}
+          label={"Bỏ qua"}
+          color={"gray"}
+          width={150}
+        />
+        <Button
+          destination={"/(guides)/information"}
+          label={"Tiếp theo"}
+          width={150}
+        />
+      </View>
     </View>
   );
 }
