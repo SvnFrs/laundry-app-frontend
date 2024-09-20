@@ -8,7 +8,7 @@
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splash_screens/iPhone_11__iPhone_XR_portrait.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
