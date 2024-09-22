@@ -69,7 +69,7 @@ export default function Payment() {
 
             <View className="py-1">
               <Button
-                destination={"/(home)/payment"}
+                destination={"/"}
                 label={"Thanh toán"}
                 width={350}
                 flex={1}
