@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "expo-router";
-import { View, Pressable, Text } from "react-native";
+import { Pressable, Text } from "react-native";
 import { ButtonProps } from "../../types/ButtonProps";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { FontAwesome6 } from "@expo/vector-icons";
 
 export default function IconButton({

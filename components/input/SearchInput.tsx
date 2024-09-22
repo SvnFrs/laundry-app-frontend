@@ -1,7 +1,6 @@
 import React from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { TextInput, TouchableOpacity, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function SearchInput() {
   return (

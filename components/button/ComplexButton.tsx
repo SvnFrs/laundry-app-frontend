@@ -21,17 +21,16 @@ export default function ComplexButton({
       className={`${flex === 1 ? "flex-1" : ""} justify-end mb-2 items-center`}
     >
       <Link href={destination} asChild>
-      <Pressable
-  style={{ width }}
-  className={`flex-row rounded-md py-3 px-4 items-center ${
-    buttonColor === "gray"
-      ? "bg-gray-100 active:bg-gray-200"
-      : buttonColor === "white"
-      ? "bg-white active:bg-gray-200"
-      : "bg-sky-500 active:bg-sky-600"
-  }`}
->
-
+        <Pressable
+          style={{ width }}
+          className={`flex-row rounded-md py-3 px-4 items-center ${
+            buttonColor === "gray"
+              ? "bg-gray-100 active:bg-gray-200"
+              : buttonColor === "white"
+              ? "bg-white active:bg-gray-200"
+              : "bg-sky-500 active:bg-sky-600"
+          }`}
+        >
           {/* Icon */}
           <FontAwesome6 name={icon} size={24} color={iconColor} />
 

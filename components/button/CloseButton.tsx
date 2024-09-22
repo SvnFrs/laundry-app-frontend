@@ -4,18 +4,18 @@ import { Pressable } from "react-native";
 import { ButtonProps } from "../../types/ButtonProps";
 import { Feather } from "@expo/vector-icons";
 
-export default function BackButton({
+export default function CloseButton({
   destination,
 }: ButtonProps) {
   return (
     <Link href={destination} asChild>
       <Pressable
-        className="flex-row rounded-xl py-3 px-4 items-center"
+        className="flex-row rounded-xl py-3 px-3 items-center bg-gray-200"
       >
         <Feather
-          name="arrow-left"
+          name="x"
           size={24}
-          color="#000"
+          color="#65c8ce"
         />
       </Pressable>
     </Link>

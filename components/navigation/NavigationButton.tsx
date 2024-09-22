@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { Text, Pressable } from "react-native";
 import React from "react";
 import { icon } from "@/constants/icon";
 
