@@ -1,12 +1,9 @@
-import { useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { View, ScrollView, TouchableOpacity } from "react-native";
+import React, {  } from "react";
+import { View, ScrollView } from "react-native";
 import BoldText from "@/components/text/BoldText";
 import RegularText from "@/components/text/RegularText";
 import IconButton from "@/components/button/IconButton";
 import ComplexButton from "@/components/button/ComplexButton";
-import { Feather } from "@expo/vector-icons";
-import BigButton from "@/components/button/BigButton";
 import ImageViewer from "@/components/image/ImageViewer";
 
 const avatarImage = require('../../../assets/images/sample/avatar.jpg');

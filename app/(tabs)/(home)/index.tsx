@@ -12,7 +12,7 @@ import ImageViewer from "@/components/image/ImageViewer";
 const laundryShopImage = require("../../../assets/images/sample/laundry_shop.jpeg");
 
 export default function Index() {
-  const [isFirstTime, setIsFirstTime] = useState(false); // Simulating first launch
+  const [isFirstTime, setIsFirstTime] = useState(true); // Simulating first launch
   const router = useRouter();
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export default function Index() {
         <View className="justify-start items-center">
           <View className="my-1">
             <ComplexButton
-              destination={"/(tabs)/(home)/details"}
+              destination={"/status"}
               boldLabel={"Washing machine 4"}
               label={"3 mins left"}
               buttonColor={"gray"}
@@ -111,7 +111,7 @@ export default function Index() {
           </View>
           <View className="my-1">
             <ComplexButton
-              destination={"/(tabs)/(home)/details"}
+              destination={"/status"}
               boldLabel={"Washing machine 11"}
               label={"38 mins left"}
               buttonColor={"gray"}
@@ -123,7 +123,7 @@ export default function Index() {
           </View>
           <View className="my-1">
             <ComplexButton
-              destination={"/(tabs)/(home)"}
+              destination={"/status"}
               boldLabel={"Washing machine 7"}
               label={"8 mins left"}
               buttonColor={"gray"}
@@ -135,7 +135,7 @@ export default function Index() {
           </View>
           <View className="my-1">
             <ComplexButton
-              destination={"/(tabs)/(home)"}
+              destination={"/status"}
               boldLabel={"Washing machine 1"}
               label={"45 mins left"}
               buttonColor={"gray"}
@@ -147,7 +147,7 @@ export default function Index() {
           </View>
           <View className="my-1">
             <ComplexButton
-              destination={"/(tabs)/(home)"}
+              destination={"/status"}
               boldLabel={"Washing machine 29"}
               label={"22 mins left"}
               buttonColor={"gray"}

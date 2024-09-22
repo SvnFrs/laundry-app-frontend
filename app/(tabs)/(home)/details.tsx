@@ -1,13 +1,8 @@
-import { useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { View, ScrollView, TouchableOpacity, Text } from "react-native";
+import React, {  } from "react";
+import { View, ScrollView, Text } from "react-native";
 import BoldText from "@/components/text/BoldText";
 import RegularText from "@/components/text/RegularText";
-import IconButton from "@/components/button/IconButton";
-import ComplexButton from "@/components/button/ComplexButton";
-import { Feather, FontAwesome6 } from "@expo/vector-icons";
-import BigButton from "@/components/button/BigButton";
-import ImageViewer from "@/components/image/ImageViewer";
+import { Feather } from "@expo/vector-icons";
 import SmallText from "@/components/text/SmallText";
 import SmallButton from "@/components/button/SmallButton";
 import BackButton from "@/components/button/BackButton";

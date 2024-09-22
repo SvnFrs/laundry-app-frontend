@@ -4,7 +4,6 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
-  Text,
 } from "react-native";
 import Button from "@/components/button/Button";
 import BoldText from "@/components/text/BoldText";

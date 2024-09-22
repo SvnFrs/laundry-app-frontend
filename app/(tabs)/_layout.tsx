@@ -5,7 +5,7 @@ import NavigationBar from "@/components/navigation/NavigationBar";
 export default function TabLayout() {
   const pathname = usePathname();
 
-  const shouldHideTabBar = pathname.includes("/wash/") || pathname.includes("/rinse/") || pathname.includes("/payment")
+  const shouldHideTabBar = pathname.includes("/wash/") || pathname.includes("/rinse/") || pathname.includes("/payment") || pathname.includes("/status")
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="(home)"
           options={{
-            title: pathname
+            title: "Home",
           }}
         />
         <Tabs.Screen

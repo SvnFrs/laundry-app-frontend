@@ -107,13 +107,13 @@ export default function Rinse() {
         </View>
 
         <View className="flex-1 flex-row py-5">
-            <Button
-              destination={"/(home)/payment"}
-              label={"Chấp nhận"}
-              width={350}
-              flex={1}
-            />
-          </View>
+          <Button
+            destination={"/(home)/payment"}
+            label={"Chấp nhận"}
+            width={350}
+            flex={1}
+          />
+        </View>
       </View>
     </ScrollView>
   );

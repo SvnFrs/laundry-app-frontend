@@ -1,7 +1,6 @@
 import React from "react";
 import { View, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
 import Button from "@/components/button/Button";
-import PhoneInput from "@/components/input/PhoneInput";
 import BoldText from "@/components/text/BoldText";
 import NavigateText from "@/components/text/NavigateText";
 import RegularText from "@/components/text/RegularText";
