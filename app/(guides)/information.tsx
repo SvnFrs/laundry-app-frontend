@@ -15,7 +15,7 @@ export default function Information() {
         <View className="my-2">
           <BoldText label={"Kiểm tra tình trạng máy giặt"} />
         </View>
-        <View className="my-2">
+        <View className="my-2 px-5">
           <RegularText
             label={"Hiển thị tình trạng máy giặt thời gian thực, đếm ngược thời gian giặt, cân nặng máy giặt có thể giặt và hơn thế nữa"}
           />
@@ -28,17 +28,19 @@ export default function Information() {
       </View>
 
       {/* Button Section */}
-      <View className="flex-1 flex-row my-4">
+      <View className="flex-1 flex-row my-9">
         <Button
           destination={"/(auth)/signup"}
           label={"Bỏ qua"}
           color={"gray"}
           width={150}
+          flex={1}
         />
         <Button
           destination={"/(guides)/payment"}
           label={"Tiếp theo"}
           width={150}
+          flex={1}
         />
       </View>
     </View>

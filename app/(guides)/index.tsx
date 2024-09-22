@@ -15,7 +15,7 @@ export default function Index() {
         <View className="my-2">
           <BoldText label={"Chào mừng bạn yêu!"} />
         </View>
-        <View className="my-2">
+        <View className="my-2 px-5">
           <RegularText
             label={"Trải nghiệm dịch vụ giặt ủi cùng với chúng tôi"}
           />
@@ -28,11 +28,14 @@ export default function Index() {
       </View>
 
       {/* Button Section */}
-      <Button
-        destination={"/(guides)/nearby"}
-        label={"Bắt đầu thôi"}
-        width={350}
-      />
+      <View className="flex-1 flex-row my-9">
+        <Button
+          destination={"/(guides)/nearby"}
+          label={"Bắt đầu thôi"}
+          width={350}
+          flex={1}
+        />
+      </View>
     </View>
   );
 }

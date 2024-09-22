@@ -7,17 +7,17 @@ import { View } from "react-native";
 
 const logoImage = require("../../assets/images/logo.png");
 
-export default function Nearby() {
+export default function Payment() {
   return (
     <View className="flex-auto items-center justify-center bg-white">
       {/* Title Section */}
       <View className="flex-1 justify-center items-center">
         <View className="my-2">
-          <BoldText label={"Tìm kiếm nơi giặt ủi gần bạn nhất nào"} />
+          <BoldText label={"Quét QR và thanh toán"} />
         </View>
         <View className="my-2 px-5">
           <RegularText
-            label={"Khám phá các cửa hàng giặt ủi gần bạn"}
+            label={"Đơn giản chỉ cần quét QR và thanh toán ngay lập tức"}
           />
         </View>
       </View>
@@ -37,7 +37,7 @@ export default function Nearby() {
           flex={1}
         />
         <Button
-          destination={"/(guides)/information"}
+          destination={"/(auth)/signup"}
           label={"Tiếp theo"}
           width={150}
           flex={1}
