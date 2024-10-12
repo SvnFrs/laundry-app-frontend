@@ -11,7 +11,7 @@ const avatarImage = require('../../../assets/images/sample/avatar.jpg');
 export default function Index() {
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
       showsVerticalScrollIndicator={false}
     >
       <View className="flex-1 justify-center bg-white">

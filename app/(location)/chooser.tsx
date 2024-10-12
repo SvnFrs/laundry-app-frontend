@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import {
-  View,
-  KeyboardAvoidingView,
-  ScrollView,
-  Platform,
-} from "react-native";
+import { View, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
 import Button from "@/components/button/Button";
 import BoldText from "@/components/text/BoldText";
 import SearchInput from "@/components/input/SearchInput";
 import Map from "@/components/map/Map";
 import RegularText from "@/components/text/RegularText";
 import IconButton from "@/components/button/IconButton";
+import ImageViewer from "@/components/image/ImageViewer";
+
+const mapImage = require("../../assets/images/sample/map.png");
 
 export default function Chooser() {
   const initialRegion = {
@@ -61,10 +59,14 @@ export default function Chooser() {
             className="flex-1 items-center my-4"
             style={{ width: "100%", height: 500 }}
           >
-            <Map
+            {/* <Map
               initialRegion={initialRegion}
               onLocationSelect={handleLocationSelect}
-            />
+            /> */}
+
+            <View className="flex-none justify-center items-center my-4">
+              <ImageViewer source={mapImage} width={350} height={500} />
+            </View>
 
             <View className="absolute bottom-5">
               <IconButton

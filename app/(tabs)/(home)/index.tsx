@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, TouchableOpacity } from "react-native";
+import { View, ScrollView, TouchableOpacity, Text } from "react-native";
 import BoldText from "@/components/text/BoldText";
 import RegularText from "@/components/text/RegularText";
 import IconButton from "@/components/button/IconButton";
@@ -8,12 +8,14 @@ import ComplexButton from "@/components/button/ComplexButton";
 import { Feather } from "@expo/vector-icons";
 import BigButton from "@/components/button/BigButton";
 import ImageViewer from "@/components/image/ImageViewer";
+import { useUser } from "@/contexts/UserContext";
 
 const laundryShopImage = require("../../../assets/images/sample/laundry_shop.jpeg");
 
 export default function Index() {
   const [isFirstTime, setIsFirstTime] = useState(true); // Simulating first launch
   const router = useRouter();
+  const { phoneNumber } = useUser();
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -28,14 +30,15 @@ export default function Index() {
 
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
       showsVerticalScrollIndicator={false}
     >
       <View className="flex-1 justify-center bg-white">
         {/* Title Section */}
         <View className="flex-row mt-12 ml-8 justify-between items-center">
           <View className="my-2">
-            <BoldText label={"Xin chào Nguyên!"} />
+            <BoldText label={"Xin chào " + phoneNumber} />
+            {/* <Text>{phoneNumber}</Text> */}
           </View>
           <View className="my-2 px-8 flex-row justify-between space-x-6">
             <TouchableOpacity>
@@ -159,16 +162,6 @@ export default function Index() {
           </View>
         </View>
 
-        {/* Button Section */}
-        <View className="flex-1 flex-row my-9 justify-end">
-          <View className="flex-1 justify-end items-center">
-            <IconButton
-              destination={"/(tabs)/home"}
-              label={"Map"}
-              icon={"map"}
-            />
-          </View>
-        </View>
       </View>
     </ScrollView>
   );
