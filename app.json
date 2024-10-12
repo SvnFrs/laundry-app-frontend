@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.svnfrs.laundryapp"
     },
     "web": {
       "bundler": "metro",
@@ -31,6 +32,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "06da3741-9302-4809-9381-5cb496e75d92"
+      }
+    },
+    "owner": "svnfrs"
   }
 }
