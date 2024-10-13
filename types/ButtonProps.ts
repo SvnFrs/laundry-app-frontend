@@ -4,7 +4,7 @@ export interface ButtonProps {
     width?: number;
     flex?: number;
     icon?: any;
-    color: string;
+    color?: string;
     iconColor?: string;
     buttonColor?: string;
     textColor?: string;
@@ -12,6 +12,6 @@ export interface ButtonProps {
     regularLabel?: string;
     selected?: boolean;
     onPress?: () => void;
-    additionalInfo?: string;
+    additionalInfo?: any;
     disabled?: boolean; // Add disabled prop
 }
