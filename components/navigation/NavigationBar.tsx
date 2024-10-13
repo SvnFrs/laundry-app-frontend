@@ -14,7 +14,7 @@ export default function NavigationBar({
   }
 
   return (
-    <View className="absolute bottom-0 flex-row justify-between items-center bg-sky-500 py-8 w-full px-4 rounded-t-3xl">
+    <View className="absolute bottom-0 flex-row justify-between items-center bg-sky-500 py-4 w-full px-4 rounded-t-3xl">
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
