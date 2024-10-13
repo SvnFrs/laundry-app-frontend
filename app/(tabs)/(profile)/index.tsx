@@ -5,10 +5,12 @@ import RegularText from "@/components/text/RegularText";
 import IconButton from "@/components/button/IconButton";
 import ComplexButton from "@/components/button/ComplexButton";
 import ImageViewer from "@/components/image/ImageViewer";
+import { useUser } from "@/contexts/UserContext";
 
 const avatarImage = require('../../../assets/images/sample/avatar.jpg');
 
 export default function Index() {
+  const { phoneNumber } = useUser();
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
@@ -25,7 +27,7 @@ export default function Index() {
         </View>
 
         <View className="items-center">
-            <BoldText label={"Nguyên"} />
+            <BoldText label={phoneNumber} />
         </View>
 
         <View className="items-center py-3">

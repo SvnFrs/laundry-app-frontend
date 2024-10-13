@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { View, KeyboardAvoidingView, ScrollView, Platform, Alert } from "react-native";
 import Button from "@/components/button/Button";
 import PhoneInput from "@/components/input/PhoneInput";
 import BoldText from "@/components/text/BoldText";
@@ -7,17 +7,59 @@ import NavigateText from "@/components/text/NavigateText";
 import RegularText from "@/components/text/RegularText";
 import { useUser } from "@/contexts/UserContext"; // Import useUser hook
 import { useRouter } from "expo-router"; // Import useRouter for navigation
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+import Constants from 'expo-constants';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function Signup() {
   const [phoneNumber, setPhoneNumber] = useState<string>(""); // Local state to store the input
   const { setPhoneNumber: setGlobalPhoneNumber } = useUser(); // Destructure the setPhoneNumber function from context
   const router = useRouter(); // Initialize router for navigation
+  const [expoPushToken, setExpoPushToken] = useState<string>(""); // Store push token
+  const notificationListener = useRef<Notifications.Subscription>(); // Listeners for notifications
+  const responseListener = useRef<Notifications.Subscription>();
 
-  // Function to handle the OTP button press
-  const handleOtpSend = () => {
-    setGlobalPhoneNumber(phoneNumber); // Set the phone number in context
-    router.push("/(auth)/otp"); // Navigate to OTP page
+  // Function to handle OTP button press
+  const handleOtpSend = async () => {
+    const otpCode = Math.floor(1000 + Math.random() * 9999).toString(); // Generate a random 6-digit OTP
+
+    // Send the OTP via push notification
+    await sendPushNotification(otpCode);
+
+    // Set phone number in context and navigate to OTP screen
+    setGlobalPhoneNumber(phoneNumber);
+    router.push("/(auth)/otp");
   };
+
+  // Register for push notifications and get the token
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => token && setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log("Notification received:", notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log("Notification response received:", response);
+    });
+
+    return () => {
+      if (notificationListener.current) {
+        Notifications.removeNotificationSubscription(notificationListener.current);
+      }
+      if (responseListener.current) {
+        Notifications.removeNotificationSubscription(responseListener.current);
+      }
+    };
+  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -66,4 +108,49 @@ export default function Signup() {
       </ScrollView>
     </KeyboardAvoidingView>
   );
+}
+
+// Function to schedule a push notification with the OTP
+async function sendPushNotification(otpCode: string) {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "OTP của bạn đã tới! 📬",
+      body: `Mã OTP để đăng nhập vào Easy Laundry là: ${otpCode}`,
+    },
+    trigger: { seconds: 2 },
+  });
+}
+
+// Function to register for push notifications
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Platform.OS === "android") {
+    await Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      Alert.alert('Failed to get push token for push notifications!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync({
+      projectId: Constants.expoConfig?.extra?.eas?.projectId ?? Constants.easConfig?.projectId,
+    })).data;
+    console.log("Expo Push Token:", token);
+  } else {
+    Alert.alert('Must use physical device for Push Notifications');
+  }
+
+  return token;
 }

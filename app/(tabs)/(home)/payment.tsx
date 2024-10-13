@@ -1,14 +1,21 @@
-import React, {  } from "react";
+import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import BoldText from "@/components/text/BoldText";
 import IconButton from "@/components/button/IconButton";
 import ComplexButton from "@/components/button/ComplexButton";
 import BackButton from "@/components/button/BackButton";
 import Button from "@/components/button/Button";
+import PaymentButton from "@/components/button/PaymentButton";
 
-const avatarImage = require("../../../assets/images/sample/avatar.jpg");
+const vietQR = require("../../../assets/images/sample/vietqr.png");
+const momo = require("../../../assets/images/sample/momo.jpg");
 
 export default function Payment() {
+  const [selectedButton, setSelectedButton] = useState<string | null>(null);
+
+  const handleSelect = (buttonId: string) => {
+    setSelectedButton((prev) => (prev === buttonId ? null : buttonId));
+  };
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
@@ -41,29 +48,31 @@ export default function Payment() {
         <View className="justify-start my-5 px-40 bg-slate-100">
           <View className="py-6">
             <View className="py-1">
-              <ComplexButton
+              <PaymentButton
                 destination={"/payment"}
                 boldLabel={"Viet QR"}
                 label={"20 000 đồng"}
-                buttonColor={"white"}
-                width={350}
-                flex={0}
-                icon={"ticket"}
-                iconColor={"#65c8ce"}
                 regularLabel="+ Số UID Ngân Hàng"
+                buttonColor={"gray"}
+                width={350}
+                icon={"ticket"}
+                additionalInfo={vietQR}
+                selected={selectedButton === "button1"}
+                onPress={() => handleSelect("button1")}
               />
             </View>
             <View className="py-1">
-              <ComplexButton
+              <PaymentButton
                 destination={"/payment"}
                 boldLabel={"Momo"}
                 label={"20 000 đồng"}
-                buttonColor={"white"}
-                width={350}
-                flex={0}
-                icon={"ticket"}
-                iconColor={"#65c8ce"}
                 regularLabel="Số điện thoại"
+                buttonColor={"gray"}
+                width={350}
+                icon={"ticket"}
+                additionalInfo={momo}
+                selected={selectedButton === "button2"}
+                onPress={() => handleSelect("button2")}
               />
             </View>
 

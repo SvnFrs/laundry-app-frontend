@@ -22,6 +22,9 @@ export default function RootLayout() {
             headerShown: false,
             animation: "slide_from_bottom",
             animationDuration: 500,
+            contentStyle:{
+              backgroundColor:'#FFFFFF'
+            }
           }}
         />
       </View>

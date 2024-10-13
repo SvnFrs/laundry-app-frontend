@@ -7,6 +7,7 @@ import Map from "@/components/map/Map";
 import RegularText from "@/components/text/RegularText";
 import IconButton from "@/components/button/IconButton";
 import ImageViewer from "@/components/image/ImageViewer";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 const mapImage = require("../../assets/images/sample/map.png");
 
@@ -56,7 +57,7 @@ export default function Chooser() {
 
           {/* Map Section */}
           <View
-            className="flex-1 items-center my-4"
+            className="flex-1 items-center"
             style={{ width: "100%", height: 500 }}
           >
             {/* <Map
@@ -64,22 +65,26 @@ export default function Chooser() {
               onLocationSelect={handleLocationSelect}
             /> */}
 
-            <View className="flex-none justify-center items-center my-4">
-              <ImageViewer source={mapImage} width={350} height={500} />
+            <View className="flex-none justify-center items-center mt-2">
+              <ImageViewer source={mapImage} width={350} height={450} />
             </View>
 
-            <View className="absolute bottom-5">
+            <View className="absolute bottom-24">
               <IconButton
                 destination={"/(location)/chooser"}
                 label={"Lưu"}
                 icon={"bookmark"}
               />
             </View>
-          </View>
 
-          <View className="items-start px-16">
-            <BoldText label={"Xác nhận vị trí"} />
-            <RegularText label={"Đại học FPT Cần Thơ, Cần Thơ"} />
+            <View className="items-start pr-20 mt-2">
+              <View className="absolute right-72">
+                <FontAwesome6 name="location-dot" size={24} color="#65c8ce" />
+              </View>
+
+              <BoldText label={"Xác nhận vị trí"} />
+              <RegularText label={"Đại học FPT Cần Thơ, Cần Thơ"} />
+            </View>
           </View>
 
           <View className="flex-1 flex-row mb-9">
