@@ -1,11 +1,9 @@
 import React from "react";
-import { Link } from "expo-router";
 import { View, Pressable, Text, Image } from "react-native";
 import { ButtonProps } from "../../types/ButtonProps";
-import { Feather, FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 export default function PaymentButton({
-  destination,
   boldLabel,
   regularLabel,
   label,
@@ -20,7 +18,7 @@ export default function PaymentButton({
     <View
       className={`${flex === 1 ? "flex-1" : ""} justify-end mb-2 items-center`}
     >
-      <Link href={destination} asChild>
+      {/* <Link href={destination} asChild> */}
         <Pressable
           style={{ width }}
           className={`flex-row rounded-md py-3 px-4 items-center ${
@@ -60,13 +58,15 @@ export default function PaymentButton({
               </View>
               {label && (
                 <View className="ml-auto">
-                  <Text className="text-sky-500">{label}</Text>
+                  <Text className={`text-xs ${
+                        selected || pressed ? "text-white" : "text-sky-500"
+                      }`}>{label}</Text>
                 </View>
               )}
             </>
           )}
         </Pressable>
-      </Link>
+      {/* </Link> */}
 
       {/* Dropdown for additional information */}
       {selected && (

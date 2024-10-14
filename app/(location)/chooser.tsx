@@ -66,7 +66,7 @@ export default function Chooser() {
             /> */}
 
             <View className="flex-none justify-center items-center mt-2">
-              <ImageViewer source={mapImage} width={350} height={450} />
+              <ImageViewer source={mapImage} width={350} height={500} />
             </View>
 
             <View className="absolute bottom-24">
@@ -77,7 +77,7 @@ export default function Chooser() {
               />
             </View>
 
-            <View className="items-start pr-20 mt-2">
+            <View className="items-start pr-20 mt-10">
               <View className="absolute right-72">
                 <FontAwesome6 name="location-dot" size={24} color="#65c8ce" />
               </View>
