@@ -75,14 +75,12 @@ export default function PaymentButton({
           // style={{ width: 350 }}
         >
           <View className="px-4">
-            {/* <Text className="text-xs font-bold text-gray-500">
-              {additionalInfo}
-            </Text> */}
-            <Image
-              className="rounded-xl"
-              style={{ width:300, height:300 }}
-              source={additionalInfo}
-            />
+          <Image
+            className="rounded-xl"
+            style={{ width: 300, height: 300 }} // Limit image height to 200
+            source={additionalInfo}
+            resizeMode="contain" // Ensure the image fits within the container
+          />
           </View>
         </Pressable>
       )}
