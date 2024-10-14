@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { UserProvider } from "../contexts/UserContext"; // Import UserProvider
+import { OrderProvider } from "@/contexts/OrderContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,18 +17,20 @@ export default function RootLayout() {
 
   return (
     <UserProvider>
-      <View style={styles.container}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-            animation: "slide_from_bottom",
-            animationDuration: 500,
-            contentStyle:{
-              backgroundColor:'#FFFFFF'
-            }
-          }}
-        />
-      </View>
+      <OrderProvider>
+        <View style={styles.container}>
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              animation: "slide_from_bottom",
+              animationDuration: 500,
+              contentStyle: {
+                backgroundColor: "#FFFFFF",
+              },
+            }}
+          />
+        </View>
+      </OrderProvider>
     </UserProvider>
   );
 }

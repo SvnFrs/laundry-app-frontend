@@ -108,7 +108,7 @@ export default function Rinse() {
 
         <View className="flex-1 flex-row py-5">
           <Button
-            destination={"/(home)/payment"}
+            destination={`/(home)/payment/${id}`}
             label={"Chấp nhận"}
             width={350}
             flex={1}

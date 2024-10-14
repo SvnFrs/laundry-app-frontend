@@ -1,3 +1,4 @@
+import { useLocalSearchParams } from "expo-router";
 import React, { useState, useEffect } from "react";
 import { View, ScrollView, ActivityIndicator } from "react-native";
 import { useRouter } from "expo-router"; // Import useRouter for navigation
@@ -13,11 +14,14 @@ import {
   Dialog,
   AlertNotificationRoot,
 } from "react-native-alert-notification"; // Import the Dialog popup
+import { useOrder } from "@/contexts/OrderContext"; 
 
-const vietQR = require("../../../assets/images/sample/vietqr.png");
-const momo = require("../../../assets/images/sample/momo.jpg");
+const vietQR = require("../../../../assets/images/sample/vietqr.png");
+const momo = require("../../../../assets/images/sample/momo.jpg");
 
 export default function Payment() {
+  const { setOrderId, setProgress } = useOrder();
+  const { id } = useLocalSearchParams();
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number>(90); // Initialize countdown with 90 seconds
   const [isLoading, setIsLoading] = useState<boolean>(false); // State for loading indicator
@@ -37,25 +41,26 @@ export default function Payment() {
 
   // Handle 'Thanh toán' button press
   const handlePayment = () => {
-    setIsLoading(true); // Show loading indicator
-
+    setIsLoading(true);
     setTimeout(() => {
-      setIsLoading(false); // Stop loading after 10 seconds
+      setIsLoading(false);
+      setOrderId(id as string); // Update order ID in the global state
+      setProgress(100); // Reset the progress to 100%
+      
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
         title: "Hoàn tất thanh toán rồi!",
         textBody: "Easy Laundry sẽ giặt đồ sạch tinh tươm cho bạn ngay.",
         button: "Tiếp tục",
         onPressButton: () => {
-          router.push("/status"); // Navigate to the '/status' route when "Tiếp tục" is pressed
+          router.push(`/status/${id}`); // Navigate to status screen
         },
         onHide: () => {
-          router.push("/");
+          router.push("/"); // Navigate to index screen
         }
       });
-    }, 10000); // Simulate 10-second payment process
+    }, 10000); // Simulate payment delay
   };
-
   return (
     <AlertNotificationRoot>
       <ScrollView

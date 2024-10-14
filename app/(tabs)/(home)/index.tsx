@@ -8,6 +8,7 @@ import { Feather } from "@expo/vector-icons";
 import BigButton from "@/components/button/BigButton";
 import ImageViewer from "@/components/image/ImageViewer";
 import { useUser } from "@/contexts/UserContext";
+import { useOrder } from "@/contexts/OrderContext";
 
 const laundryShopImage = require("../../../assets/images/sample/laundry_shop.jpeg");
 
@@ -15,6 +16,7 @@ export default function Index() {
   const [isFirstTime, setIsFirstTime] = useState(true); // Simulating first launch
   const router = useRouter();
   const { phoneNumber } = useUser();
+  const { orderId, progress } = useOrder(); // Use the order context
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -27,6 +29,21 @@ export default function Index() {
     return () => clearTimeout(timeout); // Cleanup timeout
   }, [isFirstTime]);
 
+  const duration = 420; // 7 minutes in seconds
+
+  // State to hold the remaining time in minutes
+  const [remainingMinutes, setRemainingMinutes] = useState(Math.round((progress / 100) * (duration / 60)));
+
+  useEffect(() => {
+    // Update remaining minutes every minute
+    const interval = setInterval(() => {
+      const newRemainingTime = Math.round((progress / 100) * duration);
+      setRemainingMinutes(Math.floor(newRemainingTime / 60)); // Convert seconds to minutes
+    }, 60000); // Update every minute
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, [progress, duration]);
+
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
@@ -37,7 +54,6 @@ export default function Index() {
         <View className="flex-row mt-12 ml-8 justify-between items-center">
           <View className="my-2">
             <BoldText label={"Xin chào " + phoneNumber} />
-            {/* <Text>{phoneNumber}</Text> */}
           </View>
           <View className="my-2 px-8 flex-row justify-between space-x-6">
             <TouchableOpacity>
@@ -99,68 +115,21 @@ export default function Index() {
         </View>
 
         <View className="justify-start items-center">
-          <View className="my-1">
-            <ComplexButton
-              destination={"/status"}
-              boldLabel={"Washing machine 4"}
-              label={"3 mins left"}
-              buttonColor={"gray"}
-              width={350}
-              flex={0}
-              icon={"shirt"}
-              iconColor={"#65c8ce"}
-            />
-          </View>
-          <View className="my-1">
-            <ComplexButton
-              destination={"/status"}
-              boldLabel={"Washing machine 11"}
-              label={"38 mins left"}
-              buttonColor={"gray"}
-              width={350}
-              flex={0}
-              icon={"shirt"}
-              iconColor={"#65c8ce"}
-            />
-          </View>
-          <View className="my-1">
-            <ComplexButton
-              destination={"/status"}
-              boldLabel={"Washing machine 7"}
-              label={"8 mins left"}
-              buttonColor={"gray"}
-              width={350}
-              flex={0}
-              icon={"shirt"}
-              iconColor={"#65c8ce"}
-            />
-          </View>
-          <View className="my-1">
-            <ComplexButton
-              destination={"/status"}
-              boldLabel={"Washing machine 1"}
-              label={"45 mins left"}
-              buttonColor={"gray"}
-              width={350}
-              flex={0}
-              icon={"shirt"}
-              iconColor={"#65c8ce"}
-            />
-          </View>
-          <View className="my-1">
-            <ComplexButton
-              destination={"/status"}
-              boldLabel={"Washing machine 29"}
-              label={"22 mins left"}
-              buttonColor={"gray"}
-              width={350}
-              flex={0}
-              icon={"shirt"}
-              iconColor={"#65c8ce"}
-            />
-          </View>
+          {orderId && ( // Display ongoing order if available
+            <View className="my-1">
+              <ComplexButton
+                destination={`/status/${orderId}`} // Use orderId to navigate
+                boldLabel={`Máy số ${orderId}`} // Display order information
+                label={`Còn lại ${remainingMinutes} phút`} // Display remaining time in minutes
+                buttonColor={"gray"}
+                width={350}
+                flex={0}
+                icon={"shirt"}
+                iconColor={"#65c8ce"}
+              />
+            </View>
+          )}
         </View>
-
       </View>
     </ScrollView>
   );

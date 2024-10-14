@@ -5,8 +5,10 @@ import BoldText from "@/components/text/BoldText";
 import NavigateText from "@/components/text/NavigateText";
 import RegularText from "@/components/text/RegularText";
 import OTPInput from "@/components/input/OTPInput";
+import { useUser } from "@/contexts/UserContext";
 
 export default function OTP() {
+  const { phoneNumber } = useUser();
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -20,7 +22,7 @@ export default function OTP() {
               <BoldText label={"Nhập OTP"} />
             </View>
             <View className="my-2">
-              <RegularText label={"Xin hãy nhập OTP được gửi tới +84 XXX XXX XXX"} />
+              <RegularText label={"Xin hãy nhập OTP được gửi tới +84 " + phoneNumber} />
             </View>
           </View>
 
