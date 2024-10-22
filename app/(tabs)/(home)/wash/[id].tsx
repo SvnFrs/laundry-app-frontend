@@ -57,7 +57,7 @@ export default function Wash() {
         </View>
 
         <View className="flex-none justify-center items-center">
-          <ImageViewer source={washingImage} width={350} height={250} />
+          <ImageViewer source={washingImage} width={350} height={200} />
         </View>
 
         <View className="items-start flex-row px-6 py-4">

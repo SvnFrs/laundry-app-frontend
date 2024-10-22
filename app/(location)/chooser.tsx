@@ -77,7 +77,7 @@ export default function Chooser() {
               />
             </View>
 
-            <View className="items-start pr-20 mt-10">
+            <View className="items-start pr-20 mt-5">
               <View className="absolute right-72">
                 <FontAwesome6 name="location-dot" size={24} color="#65c8ce" />
               </View>

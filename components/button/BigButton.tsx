@@ -15,7 +15,7 @@ export default function BigButton({
       <Link href={destination} asChild>
         <Pressable
           className="flex-col rounded-xl py-2 px-4 bg-gray-100 active:bg-gray-200 justify-center"
-          style={{ width: 170, height: 170 }}
+          style={{ width: 160, height: 160 }}
         >
           <View className="">
             <FontAwesome6 name={icon} size={36} color="#65c8ce" />

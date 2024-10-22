@@ -17,6 +17,7 @@ export default function Index() {
   const router = useRouter();
   const { phoneNumber } = useUser();
   const { orderId, progress } = useOrder(); // Use the order context
+  const duration = 420; // 7 minutes in seconds
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -29,20 +30,9 @@ export default function Index() {
     return () => clearTimeout(timeout); // Cleanup timeout
   }, [isFirstTime]);
 
-  const duration = 420; // 7 minutes in seconds
-
-  // State to hold the remaining time in minutes
-  const [remainingMinutes, setRemainingMinutes] = useState(Math.round((progress / 100) * (duration / 60)));
-
-  useEffect(() => {
-    // Update remaining minutes every minute
-    const interval = setInterval(() => {
-      const newRemainingTime = Math.round((progress / 100) * duration);
-      setRemainingMinutes(Math.floor(newRemainingTime / 60)); // Convert seconds to minutes
-    }, 60000); // Update every minute
-
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, [progress, duration]);
+  // Calculate remaining time in seconds
+  const remainingTimeInSeconds = Math.round((progress / 100) * duration);
+  const remainingMinutes = Math.floor(remainingTimeInSeconds / 60);
 
   return (
     <ScrollView
@@ -85,7 +75,7 @@ export default function Index() {
           <RegularText label={"Hôm nay bạn muốn giặt đồ gì nè"} />
         </View>
 
-        <View className="mt-3 px-7 flex-row items-center justify-between">
+        <View className="mt-3 px-5 flex-row items-center justify-between">
           <BigButton
             destination={"/(tabs)/(home)/details"}
             label={"Map"}
@@ -109,27 +99,28 @@ export default function Index() {
         <View className="flex-none justify-center items-center">
           <ImageViewer source={laundryShopImage} width={350} height={150} />
         </View>
-
-        <View className="items-start flex-row px-6 py-6">
-          <RegularText label={"Ongoing Orders"} />
-        </View>
-
-        <View className="justify-start items-center">
-          {orderId && ( // Display ongoing order if available
-            <View className="my-1">
-              <ComplexButton
-                destination={`/status/${orderId}`} // Use orderId to navigate
-                boldLabel={`Máy số ${orderId}`} // Display order information
-                label={`Còn lại ${remainingMinutes} phút`} // Display remaining time in minutes
-                buttonColor={"gray"}
-                width={350}
-                flex={0}
-                icon={"shirt"}
-                iconColor={"#65c8ce"}
-              />
+        
+        {orderId && ( // Display ongoing order if available
+          <>
+            <View className="items-start flex-row px-6 py-6">
+              <RegularText label={"Đơn hàng hiện tại"} />
             </View>
-          )}
-        </View>
+            <View className="justify-start items-center">
+              <View className="my-1">
+                <ComplexButton
+                  destination={`/status/${orderId}`} // Use orderId to navigate
+                  boldLabel={`Máy số ${orderId}`} // Display order information
+                  label={`Còn lại ${remainingMinutes} phút`} // Display remaining time in minutes and seconds
+                  buttonColor={"gray"}
+                  width={350}
+                  flex={0}
+                  icon={"shirt"}
+                  iconColor={"#65c8ce"} 
+                />
+              </View>
+            </View>
+          </>
+        )}
       </View>
     </ScrollView>
   );

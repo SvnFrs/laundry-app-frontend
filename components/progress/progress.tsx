@@ -25,13 +25,12 @@ export default function Progress() {
 
   // Calculate remaining time in seconds
   const remainingTime = Math.round((progress / 100) * totalDuration);
-  // Calculate the remaining percentage
   const remainingPercentage = Math.round((remainingTime / totalDuration) * 100);
 
   return (
     <View>
       <AnimatedCircularProgress
-        size={250}
+        size={260}
         width={25}
         fill={progress} // This value updates every second
         tintColor="#65c8d0" // Upper color

@@ -15,7 +15,7 @@ export default function SmallButton({
       <Link href={destination} asChild>
         <Pressable
           className="flex-col rounded-md py-1 px-4 bg-gray-100 active:bg-sky-400 justify-center items-center"
-          style={{ width: 110, height: 110 }}
+          style={{ width: 100, height: 100 }}
         >
           {({ pressed }) => (
             <>

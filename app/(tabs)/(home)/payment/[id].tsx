@@ -53,14 +53,17 @@ export default function Payment() {
         textBody: "Easy Laundry sẽ giặt đồ sạch tinh tươm cho bạn ngay.",
         button: "Tiếp tục",
         onPressButton: () => {
+          Dialog.hide(); // Hide the dialog before navigating
           router.push(`/status/${id}`); // Navigate to status screen
         },
-        onHide: () => {
-          router.push("/"); // Navigate to index screen
-        }
+        // onHide: () => {
+        //   Dialog.hide(); // Ensure dialog is hidden when this callback is called
+        //   router.push("/"); // Navigate to index screen
+        // }
       });
     }, 10000); // Simulate payment delay
   };
+  
   return (
     <AlertNotificationRoot>
       <ScrollView

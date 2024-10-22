@@ -41,7 +41,7 @@ export default function Status() {
             </View>
           </View>
 
-          <View className="flex-none justify-center items-center">
+          <View className="flex-none justify-center items-center mb-10">
             <ImageViewer source={happyImage} width={100} height={150} />
           </View>
 
