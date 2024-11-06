@@ -57,15 +57,15 @@ export default function Chooser() {
 
           {/* Map Section */}
           <View
-            className="flex-1 items-center"
+            className="flex-1 items-center my-10"
             style={{ width: "100%", height: 500 }}
           >
-            {/* <Map
+            <Map
               initialRegion={initialRegion}
               onLocationSelect={handleLocationSelect}
-            /> */}
+            />
 
-            <View className="flex-none justify-center items-center mt-2">
+            {/* <View className="flex-none justify-center items-center mt-2">
               <ImageViewer source={mapImage} width={350} height={500} />
             </View>
 
@@ -76,6 +76,7 @@ export default function Chooser() {
                 icon={"bookmark"}
               />
             </View>
+             */}
 
             <View className="items-start pr-20 mt-5">
               <View className="absolute right-72">

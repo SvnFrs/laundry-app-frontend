@@ -59,9 +59,9 @@ export default function Index() {
           <View className="mt-2">
             <ComplexButton
               destination={"/(tabs)/(home)"}
-              boldLabel={"Nhà"}
+              boldLabel={"Cơ quan, trường học"}
               buttonColor={"sky"}
-              regularLabel={"Nguyễn Văn Cừ, Cần Thơ"}
+              regularLabel={"Đại học FPT Cần Thơ, Cần Thơ"}
               width={350}
               flex={0}
               icon={"location-arrow"}
