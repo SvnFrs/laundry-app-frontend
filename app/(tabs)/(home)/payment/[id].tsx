@@ -8,19 +8,20 @@ import ComplexButton from "@/components/button/ComplexButton";
 import BackButton from "@/components/button/BackButton";
 import Button from "@/components/button/Button";
 import PaymentButton from "@/components/button/PaymentButton";
-import { BlurView } from 'expo-blur'; // Import BlurView for blurring
+import { BlurView } from "expo-blur"; // Import BlurView for blurring
 import {
   ALERT_TYPE,
   Dialog,
   AlertNotificationRoot,
 } from "react-native-alert-notification"; // Import the Dialog popup
-import { useOrder } from "@/contexts/OrderContext"; 
+import { useOrder } from "@/contexts/OrderContext";
+import SmartButton from "@/components/button/SmartButton";
 
 const vietQR = require("../../../../assets/images/sample/vietqr.png");
 const momo = require("../../../../assets/images/sample/momo.jpg");
 
 export default function Payment() {
-  const { setOrderId, setProgress } = useOrder();
+  const { addOrderId, setProgress } = useOrder();
   const { id } = useLocalSearchParams();
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
   const [countdown, setCountdown] = useState<number>(90); // Initialize countdown with 90 seconds
@@ -44,26 +45,22 @@ export default function Payment() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      setOrderId(id as string); // Update order ID in the global state
-      setProgress(100); // Reset the progress to 100%
-      
+      addOrderId(id as string); // Append new order ID to the context
+      setProgress(100); // Reset progress
+
       Dialog.show({
         type: ALERT_TYPE.SUCCESS,
         title: "Hoàn tất thanh toán rồi!",
         textBody: "Easy Laundry sẽ giặt đồ sạch tinh tươm cho bạn ngay.",
         button: "Tiếp tục",
         onPressButton: () => {
-          Dialog.hide(); // Hide the dialog before navigating
-          router.push(`/status/${id}`); // Navigate to status screen
+          Dialog.hide();
+          router.push(`/status/${id}`);
         },
-        // onHide: () => {
-        //   Dialog.hide(); // Ensure dialog is hidden when this callback is called
-        //   router.push("/"); // Navigate to index screen
-        // }
       });
-    }, 10000); // Simulate payment delay
+    }, 10000);
   };
-  
+
   return (
     <AlertNotificationRoot>
       <ScrollView
@@ -80,16 +77,16 @@ export default function Payment() {
 
           <View className="items-center mt-16">
             <View className="my-1">
-              <ComplexButton
+              <SmartButton
                 destination={"/payment"}
                 boldLabel={"Ưu đãi"}
-                label={">"}
+                regularLabel="0 ưu đãi còn lại"
                 buttonColor={"gray"}
                 width={350}
-                flex={0}
-                icon={"ticket"}
-                iconColor={"#65c8ce"}
-                regularLabel="0 ưu đãi còn lại"
+                icon={"gift"}
+                additionalInfo="Bạn hiện không có ưu đãi nào"
+                selected={selectedButton === "button0"}
+                onPress={() => handleSelect("button0")}
               />
             </View>
           </View>
@@ -151,7 +148,16 @@ export default function Payment() {
 
           {/* Show loading indicator and blur when payment is processing */}
           {isLoading && (
-            <BlurView intensity={50} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+            <BlurView
+              intensity={50}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+              }}
+            >
               <View className="flex-1 justify-center items-center">
                 <ActivityIndicator size="large" color="#65c8ce" />
               </View>

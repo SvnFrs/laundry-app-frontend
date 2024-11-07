@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React from "react";
 import { View, ScrollView, Text } from "react-native";
 import BoldText from "@/components/text/BoldText";
 import RegularText from "@/components/text/RegularText";
@@ -6,8 +6,49 @@ import { Feather } from "@expo/vector-icons";
 import SmallText from "@/components/text/SmallText";
 import SmallButton from "@/components/button/SmallButton";
 import BackButton from "@/components/button/BackButton";
+import { useOrder } from "@/contexts/OrderContext";
 
 export default function Details() {
+  const { orderIds, progress } = useOrder();
+  const duration = 420; // 7 minutes in seconds
+  const remainingTimeInSeconds = Math.round((progress / 100) * duration);
+  const remainingMinutes = Math.floor(remainingTimeInSeconds / 60);
+
+  // Define all machines
+  const machines = [
+    { id: 1, label: "7 Kg", destination: "/wash/1", icon: "water" },
+    { id: 4, label: "7 Kg", destination: "/wash/4", icon: "water" },
+    { id: 5, label: "7 Kg", destination: "/wash/5", icon: "fire" },
+    { id: 8, label: "6 Kg", destination: "/wash/8", icon: "fire" },
+    { id: 9, label: "8 Kg", destination: "/wash/9", icon: "water" },
+    { id: 10, label: "8 Kg", destination: "/wash/10", icon: "fire" },
+    { id: 11, label: "7 Kg", destination: "/wash/11", icon: "fire" },
+  ];
+
+  // Default booked machines
+  const defaultBookedMachines = [
+    { id: 2, remainingMinutes: 15, icon: "water" },
+    { id: 3, remainingMinutes: 20, icon: "fire" },
+    { id: 6, remainingMinutes: 2, icon: "fire" },
+    { id: 7, remainingMinutes: 35, icon: "water" },
+    { id: 12, remainingMinutes: 10, icon: "fire" },
+  ];
+
+  // Split machines into available and booked
+  const availableMachines = machines.filter(
+    (machine) => !orderIds.includes(machine.id.toString())
+  );
+  const bookedMachines = [
+    ...defaultBookedMachines,
+    ...machines
+      .filter((machine) => orderIds.includes(machine.id.toString()))
+      .map((machine) => ({
+        id: machine.id,
+        remainingMinutes, // Example remaining time for custom orders
+        icon: machine.icon,
+      })),
+  ];
+
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
@@ -17,6 +58,7 @@ export default function Details() {
         <View className="absolute top-10">
           <BackButton destination={"/(tabs)/(home)"} />
         </View>
+
         {/* Title Section */}
         <View className="mt-12 items-center">
           <BoldText label={"Tiệm giặt XXX"} />
@@ -47,122 +89,38 @@ export default function Details() {
           <RegularText label={"Máy giặt hiện đang trống"} />
         </View>
 
+        {/* Available Machines Section */}
         <View className="my-3 px-7 flex-row flex-wrap justify-start">
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/wash/1"}
-              label={"Map"}
-              icon={"water"}
-              boldLabel={"Số. 1"}
-              regularLabel="7 Kg"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/wash/4"}
-              label={"Map"}
-              icon={"water"}
-              boldLabel={"Số. 4"}
-              regularLabel="7 Kg"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/wash/5"}
-              label={"Map"}
-              icon={"fire"}
-              boldLabel={"Số. 5"}
-              regularLabel="7 Kg"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/wash/8"}
-              label={"Map"}
-              icon={"fire"}
-              boldLabel={"Số. 8"}
-              regularLabel="6 Kg"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/wash/9"}
-              label={"Map"}
-              icon={"water"}
-              boldLabel={"Số. 9"}
-              regularLabel="8 Kg"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/wash/10"}
-              label={"Map"}
-              icon={"fire"}
-              boldLabel={"Số. 10"}
-              regularLabel="8 Kg"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/wash/11"}
-              label={"Map"}
-              icon={"fire"}
-              boldLabel={"Số. 11"}
-              regularLabel="7 Kg"
-            />
-          </View>
+          {availableMachines.map((machine) => (
+            <View key={machine.id} className="w-1/3 p-1">
+              <SmallButton
+                destination={machine.destination}
+                label={"Map"}
+                icon={machine.icon}
+                boldLabel={`Số. ${machine.id}`}
+                regularLabel={machine.label}
+              />
+            </View>
+          ))}
         </View>
 
         <View className="items-start flex-row px-4 py-3">
-          <RegularText label={"Đặt máy giặt"} />
+          <RegularText label={"Máy giặt hiện đang được đặt"} />
         </View>
 
+        {/* Booked Machines Section */}
         <View className="mt-3 px-7 flex-row flex-wrap justify-start">
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/(tabs)/(home)/details"}
-              label={"Map"}
-              icon={"water"}
-              boldLabel={"Số. 2"}
-              regularLabel="Còn 15 phút"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/(tabs)/(home)/details"}
-              label={"Map"}
-              icon={"fire"}
-              boldLabel={"Số. 3"}
-              regularLabel="Còn 20 phút"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/(tabs)/(home)/details"}
-              label={"Map"}
-              icon={"fire"}
-              boldLabel={"Số. 6"}
-              regularLabel="Còn 2 phút"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/(tabs)/(home)/details"}
-              label={"Map"}
-              icon={"water"}
-              boldLabel={"Số. 7"}
-              regularLabel="Còn 35 phút"
-            />
-          </View>
-          <View className="w-1/3 p-1">
-            <SmallButton
-              destination={"/(tabs)/(home)/details"}
-              label={"Map"}
-              icon={"fire"}
-              boldLabel={"Số. 12"}
-              regularLabel="Còn 10 phút"
-            />
-          </View>
+          {bookedMachines.map((machine) => (
+            <View key={machine.id} className="w-1/3 p-1">
+              <SmallButton
+                destination={"/(tabs)/(home)/details"}
+                label={"Map"}
+                icon={machine.icon}
+                boldLabel={`Số. ${machine.id}`}
+                regularLabel={`Còn ${machine.remainingMinutes} phút`}
+              />
+            </View>
+          ))}
         </View>
       </View>
     </ScrollView>

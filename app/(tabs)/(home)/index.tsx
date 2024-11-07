@@ -13,10 +13,10 @@ import { useOrder } from "@/contexts/OrderContext";
 const laundryShopImage = require("../../../assets/images/sample/laundry_shop.jpeg");
 
 export default function Index() {
-  const [isFirstTime, setIsFirstTime] = useState(true); // Simulating first launch
+  const [isFirstTime, setIsFirstTime] = useState(false); // Simulating first launch
   const router = useRouter();
   const { phoneNumber } = useUser();
-  const { orderId, progress } = useOrder(); // Use the order context
+  const { orderIds, progress } = useOrder();
   const duration = 420; // 7 minutes in seconds
 
   useEffect(() => {
@@ -99,25 +99,26 @@ export default function Index() {
         <View className="flex-none justify-center items-center">
           <ImageViewer source={laundryShopImage} width={350} height={150} />
         </View>
-        
-        {orderId && ( // Display ongoing order if available
+        {orderIds.length > 0 && ( // Display ongoing orders if available
           <>
             <View className="items-start flex-row px-6 py-6">
               <RegularText label={"Đơn hàng hiện tại"} />
             </View>
             <View className="justify-start items-center">
-              <View className="my-1">
-                <ComplexButton
-                  destination={`/status/${orderId}`} // Use orderId to navigate
-                  boldLabel={`Máy số ${orderId}`} // Display order information
-                  label={`Còn lại ${remainingMinutes} phút`} // Display remaining time in minutes and seconds
-                  buttonColor={"gray"}
-                  width={350}
-                  flex={0}
-                  icon={"shirt"}
-                  iconColor={"#65c8ce"} 
-                />
-              </View>
+              {orderIds.map((orderId) => (
+                <View key={orderId} className="my-1">
+                  <ComplexButton
+                    destination={`/status/${orderId}`} // Use each orderId to navigate
+                    boldLabel={`Máy số ${orderId}`} // Display order information
+                    label={`${remainingMinutes === 0 ? `Đã hoàn thành` : `Còn lại ${remainingMinutes} phút`}`} // Display remaining time in minutes
+                    buttonColor={"gray"}
+                    width={350}
+                    flex={0}
+                    icon={"shirt"}
+                    iconColor={"#65c8ce"}
+                  />
+                </View>
+              ))}
             </View>
           </>
         )}
