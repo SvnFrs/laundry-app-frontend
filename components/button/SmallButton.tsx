@@ -14,7 +14,7 @@ export default function SmallButton({
     <View className="">
       <Link href={destination} asChild>
         <Pressable
-          className="flex-col rounded-md py-1 px-4 bg-gray-100 active:bg-sky-400 justify-center items-center"
+          className="flex-col rounded-md py-2 px-5 bg-gray-100 active:bg-sky-400 justify-center items-center"
           style={{ width: 100, height: 100 }}
         >
           {({ pressed }) => (
@@ -29,7 +29,7 @@ export default function SmallButton({
               <Text className={`font-extrabold py-2 ${pressed ? "text-white" : "text-black"}`}>
                 {boldLabel}
               </Text>
-              <Text className={`text-xs ${pressed ? "text-white" : "text-gray-400"}`}>
+              <Text className={`text-xs text-center ${pressed ? "text-white" : "text-gray-400"}`}>
                 {regularLabel}
               </Text>
             </>

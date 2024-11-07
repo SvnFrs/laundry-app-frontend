@@ -17,7 +17,7 @@ export default function SmartButton({
 }: ButtonProps) {
   return (
     <View className={`${flex === 1 ? "flex-1" : ""} justify-end mb-2 items-center`}>
-      <Link href={destination} asChild>
+      <Link href={destination}>
         <Pressable
           style={{ width }}
           className={`flex-row rounded-md py-3 px-4 items-center ${
@@ -30,7 +30,7 @@ export default function SmartButton({
               <View className="">
                 <Feather
                   name={icon}
-                  size={32}
+                  size={28}
                   color={selected || pressed ? "#fff" : "#65c8ce"}
                 />
               </View>

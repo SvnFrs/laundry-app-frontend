@@ -15,6 +15,7 @@ export default function ComplexButton({
   buttonColor,
   iconColor,
   textColor,
+  onPress,
 }: ButtonProps) {
   return (
     <View
@@ -23,13 +24,14 @@ export default function ComplexButton({
       <Link href={destination} asChild>
         <Pressable
           style={{ width }}
-          className={`flex-row rounded-md py-3 px-4 items-center ${
+          className={`flex-row rounded-md py-4 px-4 items-center ${
             buttonColor === "gray"
               ? "bg-gray-100 active:bg-gray-200"
               : buttonColor === "white"
               ? "bg-white active:bg-gray-200"
               : "bg-sky-500 active:bg-sky-600"
           }`}
+          onPress={onPress}
         >
           {/* Icon */}
           <FontAwesome6 name={icon} size={24} color={iconColor} />
